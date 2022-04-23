@@ -5,7 +5,7 @@
 
       <div v-show="isListShown" class="list">
         <div
-          v-for="(row, i) in hintsMatrix"
+          v-for="(row, i) in hintsMatrix.length ? hintsMatrix : mockHints"
           :key="i"
           class="row"
         >
@@ -20,44 +20,27 @@
   </div>
 </template>
 
-<script>
-export default {
-  name: 'Hints',
+<script setup>
+import { ref } from 'vue';
+import { mainState } from '@/store/data';
 
-  data() {
-    return {
-      isListShown: false,
-      hintsMatrix: [
-        {
-          first: '/img/hints/remen.png',
-          total: '/img/hints/binokl.png',
-        },
-        {
-          first: '/img/hints/binokl.png',
-          total: '/img/hints/lens.png',
-        },
-        {
-          first: '/img/hints/lens.png',
-          total: '/img/hints/objective.png',
-        },
-        {
-          first: '/img/hints/objective.png',
-          total: '/img/hints/camera-b.png',
-        },
-        {
-          first: '/img/hints/camera-b.png',
-          total: '/img/hints/camera-w.png',
-        },
-      ],
-    };
-  },
+const hintsMatrix = mainState.state.checkers?.value
+  .map((el, i) => ({
+    first: el,
+    total: mainState.state.checkers.value[i + 1] || el,
+  }))
+  .splice(0, mainState.state.checkers?.value.length - 1);
 
-  methods: {
-    hintListHandler() {
-      this.isListShown = !this.isListShown;
-    },
-  },
+const isListShown = ref(false);
+
+const hintListHandler = () => {
+  isListShown.value = !isListShown.value;
 };
+
+const mockHints = new Array(6).fill({
+  first: '/img/mock-hint.svg',
+  total: '/img/mock-hint.svg',
+});
 </script>
 
 <style lang="scss" scoped>

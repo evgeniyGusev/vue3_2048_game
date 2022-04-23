@@ -1,5 +1,6 @@
 <template>
   <div class="content">
+    <Info />
     <Game :class="[!showGame && 'g']" />
     <Hints class="content-hints" />
   </div>
@@ -8,6 +9,7 @@
 <script setup>
 import { ref, watch } from 'vue';
 import { mobActive, scrollLock } from '@/composables/game';
+import Info from './Info.vue';
 import Game from './Game.vue';
 import Hints from './Hints.vue';
 
@@ -26,9 +28,11 @@ watch(() => mobActive.value, (val) => {
 .content {
   z-index: 3;
   position: relative;
-  padding: 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 50px 95px 90px 45px;
   border-radius: 20px;
-  background-color: #fff;
 
   .hints {
     position: absolute;

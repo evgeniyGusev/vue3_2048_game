@@ -1,5 +1,3 @@
 module.exports = {
-  devServer: {
-    proxy: process.env.VUE_APP_BASE_URL,
-  },
+  publicPath: process.env.NODE_ENV === 'production' ? '/vue3_2048_game/' : '/',
 };

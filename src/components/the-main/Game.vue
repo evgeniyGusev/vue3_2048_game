@@ -23,7 +23,7 @@
       </div>
     </div>
 
-    <a href="/rules.pdf" class="rules">
+    <a :href="mainState.state.gameRulesLink" class="rules">
       Правила акции
     </a>
   </div>
@@ -39,6 +39,7 @@ import {
   gameStatus,
 } from '@/composables/game';
 import { popMethods } from '@/store/popup';
+import { mainState } from '@/store/data';
 import Hints from './Hints.vue';
 
 onMounted(() => {
@@ -49,6 +50,11 @@ const showRules = () => {
   popMethods.setPopupName('HelloPopup');
   pauseTimer();
 };
+
+const checks = mainState.state.checkers.value.length
+  ? mainState.state.checkers.value.map((el) => `url("${el}") center no-repeat`)
+  : new Array(6).fill(`url("/img/mock-hint.svg") center no-repeat`);
+
 </script>
 
 <style lang="scss" scoped>
@@ -110,52 +116,48 @@ const showRules = () => {
       }
 
       .background {
-        background-color: #F32135;
         box-shadow: inset 4px 4px 10px rgba(0, 0, 0, 0.2);
       }
 
       .tile {
         opacity: 0;
-        background: url("/img/game/rem.svg") center no-repeat;
+        background: v-bind('checks[0]');
         background-size: 50px 50px;
         transition: 110ms ease-in-out;
 
         &--4 {
-          background: url("/img/game/binokl.svg") center no-repeat;
+          background: v-bind('checks[1]');
           background-size: 60px 60px;
         }
 
         &--8 {
-          background: url("/img/game/lens.svg") center no-repeat;
+          background: v-bind('checks[2]');
           background-size: 50px 50px;
         }
 
         &--16 {
-          background: url("/img/game/objective.svg") center no-repeat;
+          background: v-bind('checks[3]');
           background-size: 50px 50px;
         }
 
         &--32 {
-          background: url("/img/game/camera-b.svg") center no-repeat;
+          background: v-bind('checks[4]');
           background-size: 50px 50px;
         }
 
         &--64 {
           box-shadow: 0 0 40px 10px #f1f600;
-          background-color: #00c536;
-          background-image: url("/img/game/camera-w.svg");
-          background-position: center;
-          background-repeat: no-repeat;
+          background: v-bind('checks[5]');
           background-size: 50px 50px;
         }
 
         &--128 {
-          background: url("/img/game/camera-w.svg") center no-repeat;
+          background: v-bind('checks[5]');
           background-size: 50px 50px;
         }
 
         &--256 {
-          background: url("/img/game/camera-w.svg") center no-repeat;
+          background: v-bind('checks[5]');
           background-size: 50px 50px;
         }
 

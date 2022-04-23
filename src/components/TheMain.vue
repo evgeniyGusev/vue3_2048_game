@@ -1,3 +1,7 @@
+<script setup>
+import Content from './the-main/Content.vue';
+</script>
+
 <template>
   <div class="the-main">
     <div class="app-container">
@@ -6,24 +10,9 @@
   </div>
 </template>
 
-<script>
-import Content from './the-main/Content.vue';
-
-export default {
-  name: 'TheMain',
-  components: { Content },
-};
-</script>
-
 <style lang="scss" scoped>
 .the-main {
-  display: flex;
-  align-items: center;
-  min-height: 100%;
-  min-width: 100%;
-  padding: 30px;
-  background: url("/img/bg.jpg") center no-repeat;
-  background-size: cover;
+  padding: 60px 0;
 }
 
 @media screen and (max-width: 1100px) {

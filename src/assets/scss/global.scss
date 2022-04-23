@@ -1,4 +1,5 @@
 @import './fonts';
+@import './themes/index';
 
 * {
   margin: 0;
@@ -19,6 +20,11 @@ button {
   outline: none;
   border: none;
   cursor: pointer;
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: .7;
+  }
 }
 
 ul {
@@ -43,7 +49,7 @@ a {
 }
 
 .app-container {
-  max-width: 600px;
+  max-width: 1290px;
   margin: 0 auto;
   padding: 0 45px;
 
@@ -54,23 +60,8 @@ a {
 
 .app-button {
   padding: 24px 0;
-  background: rgba(0, 0, 0, 0.9);
   border-radius: 4px;
   font-size: 18px;
   line-height: 21px;
   text-align: center;
-  color: #FFFFFF;
-
-  &:hover {
-    background: #4d4d4d;
-  }
-
-  &:disabled {
-    cursor: not-allowed;
-    opacity: .7;
-
-    &:hover {
-      background: rgba(0, 0, 0, 0.9);
-    }
-  }
 }

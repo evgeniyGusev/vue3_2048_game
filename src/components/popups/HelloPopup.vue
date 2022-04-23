@@ -1,15 +1,18 @@
 <template>
   <div class="hello-popup">
     <div class="left">
-      <div class="title">
-        Как играть
-      </div>
+      <div class="title" v-html="mainState.state.helloPopupTitle.value" />
 
       <div class="text first">
         Используйте кнопки ←↑→↓ или свайп (в&nbsp;мобильной версии), чтобы перемещать элементы по игровому полю.
         Когда&nbsp;2&nbsp;одинаковых элемента соприкасаются друг с другом, они сливаются и образуют новый элемент.
       </div>
+      <div class="text second">
+        {{ getSecondText }}
+      </div>
     </div>
+
+    <div class="right"></div>
   </div>
 
   <button class="app-button" :disabled="gameStatus" @click="startGame">
@@ -18,6 +21,8 @@
 </template>
 
 <script setup>
+import { computed } from 'vue';
+import getNoun from 'nouns-number';
 import {
   startTimer,
   time,
@@ -29,6 +34,9 @@ import {
   scrollLock,
 } from '@/composables/game';
 import { popMethods } from '@/store/popup';
+import { mainState } from '@/store/data';
+
+const getSecondText = computed(() => `Ваша главная задача — успеть собрать финальный элемент за ${mainState.state.timeMinutes.value} ${getNoun(['минуту', 'минуты', 'минут'], mainState.state.timeMinutes.value)}. Главный приз — ${mainState.state.finalPrize.value}`);
 
 const startGame = () => {
   popMethods.setPopupName('');
@@ -63,6 +71,8 @@ const startGame = () => {
   align-items: center;
 
   .left {
+    margin-right: 25px;
+
     .title {
       margin-bottom: 28px;
       font-size: 36px;
@@ -78,12 +88,23 @@ const startGame = () => {
       &.first {
         margin-bottom: 25px;
       }
+
+      &.second {
+        margin-bottom: 52px;
+      }
     }
+  }
+
+  .right {
+    width: 277px;
+    height: 280px;
+    background: url("/img/game-rules.gif") center no-repeat;
+    background-size: contain;
   }
 }
 
 .app-button {
-  width: 100%;
+  width: 90%;
 }
 
 @media screen and (max-width: 1100px) {

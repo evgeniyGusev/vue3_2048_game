@@ -1,7 +1,7 @@
 <template>
   <div class="the-popup">
-    <div :class="['content', getPopup === 'EmailPopup' && 'content-email']">
-      <div v-if="getPopup !== 'EmailPopup' && getPopup !== 'OopsPopup'" class="close" @click="closePopup" />
+    <div class="content">
+      <div class="close" @click="closePopup" />
       <component :is="components[getPopup]" />
     </div>
   </div>
@@ -24,21 +24,17 @@ import {
   scrollUnlock,
 } from '@/composables/game';
 import HelloPopup from './popups/HelloPopup.vue';
-import WarnPopup from './popups/WarnPopup.vue';
 import OopsPopup from './popups/OopsPopup.vue';
 
 const components = {
   HelloPopup,
-  WarnPopup,
   OopsPopup,
 };
 
 const getPopup = computed(() => popState.name);
 const closePopup = () => {
   if (getPopup.value === 'HelloPopup' && (time.minutes || time.seconds)) {
-    console.log(mq.value);
     if (mq.value === 'md') {
-      console.log('тут');
       window.scrollTo(0, 150);
       scrollLock();
     }
@@ -91,41 +87,18 @@ onMounted(() => {
   .content {
     overflow: hidden;
     position: relative;
-    padding: 40px;
+    padding: 40px 40px 40px 100px;
     border-radius: 20px;
     background: #fff;
 
-    .close,
-    .ball,
-    .gift {
-      position: absolute;
-    }
-
     .close {
+      position: absolute;
       top: 20px;
       right: 20px;
       width: 15px;
       height: 15px;
       background: url("/img/close.svg") center no-repeat;
       cursor: pointer;
-    }
-
-    .ball {
-      left: -17px;
-      top: 90px;
-      width: 108px;
-      height: 140px;
-      background: url("/img/ball.png") center no-repeat;
-      background-size: contain;
-    }
-
-    .gift {
-      right: -28px;
-      bottom: 0;
-      width: 108px;
-      height: 140px;
-      background: url("/img/gift.png") center no-repeat;
-      background-size: contain;
     }
   }
 }
@@ -139,16 +112,6 @@ onMounted(() => {
     .content {
       width: 100%;
       padding: 40px 50px;
-
-      .ball {
-        top: 500px;
-      }
-
-      &-email {
-        .ball {
-          top: 100px;
-        }
-      }
     }
   }
 }
@@ -159,25 +122,6 @@ onMounted(() => {
 
     .content {
       padding: 25px;
-
-      .ball,
-      .gift {
-        display: none;
-      }
-
-      &-email {
-        .ball,
-        .gift {
-          display: block;
-        }
-
-        .ball {
-          width: 100px;
-          height: 100px;
-          top: 90px;
-          left: -25px;
-        }
-      }
     }
   }
 }

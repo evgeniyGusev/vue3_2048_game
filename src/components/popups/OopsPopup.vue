@@ -27,7 +27,7 @@ import {
   addListeners,
   scrollLock,
   scrollUnlock,
-} from '../../composables/game';
+} from '@/composables/game';
 
 const close = () => {
   resetTime();
