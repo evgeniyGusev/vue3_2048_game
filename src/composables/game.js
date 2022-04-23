@@ -2,11 +2,13 @@
 import { ref, reactive, computed } from 'vue';
 import _ from "lodash";
 import { popMethods } from '../store/popup';
+import { mainState } from '../store/data';
 
 export const wWidth = ref(window.innerWidth);
 
 const onWidthChange = () => wWidth.value = window.innerWidth;
 window.addEventListener('resize', onWidthChange);
+// window.removeEventListener('resize', onWidthChange);
 
 export const mq = computed(() => {
   if (wWidth.value < 701) return 'md';
@@ -19,19 +21,17 @@ const width = computed(() => wWidth.value);
 export const gameStatus = ref(false);
 export const mobActive = ref(false);
 export const count = ref(0);
-const minutes = 1;
-const seconds = 0;
 
 let interval;
 let callbackMethod;
 
 export const time = reactive({
-  minutes,
-  seconds,
+  minutes: 0,
+  seconds: 0,
 });
 export const resetTime = () => {
-  time.minutes = minutes;
-  time.seconds = seconds;
+  time.minutes = mainState.state.timeMinutes.value;
+  time.seconds = mainState.state.timeSeconds.value;
 };
 export const pauseTimer = () => {
   clearInterval(interval);
@@ -43,6 +43,7 @@ export function startTimer(callback) {
     // кэшируем коллбэк для использования при его отсутствии в аргументе
     callbackMethod = callback || (() => console.log('null callback'));
   }
+
   interval = setInterval(() => {
     if (!time.minutes && !time.seconds) {
       clearInterval(interval);

@@ -1,0 +1,45 @@
+#main {
+  background: #f6f6f6;
+
+  .the-footer {
+    background: #2c2c2c;
+
+    .content {
+      .text-container {
+        .text-top {
+          color: #fff;
+
+          .rules-link {
+            color: #fff;
+
+            &:hover {
+              color: #FFDC2D;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .the-main {
+    .content {
+      background: #fff;
+      color: #000;
+    }
+  }
+
+  button.app-button {
+    background-color: rgba(0, 0, 0, 0.9);
+    color: #fff;
+
+    &:hover {
+      background: #4d4d4d;
+    }
+
+    &:disabled {
+      &:hover {
+        background: rgba(0, 0, 0, 0.9);
+      }
+    }
+  }
+}
